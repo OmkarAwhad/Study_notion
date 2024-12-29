@@ -20,6 +20,9 @@ const userSchema = new mongoose.Schema({
 		type: String,
 		required: true,
 	},
+	contactNumber:{
+		type:Number,
+	},
 	accountType: {
 		type: String,
 		enum: ["Admin", "Student", "Instructor"],
