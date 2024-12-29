@@ -20,8 +20,8 @@ const userSchema = new mongoose.Schema({
 		type: String,
 		required: true,
 	},
-	contactNumber:{
-		type:Number,
+	contactNumber: {
+		type: Number,
 	},
 	accountType: {
 		type: String,
@@ -39,6 +39,12 @@ const userSchema = new mongoose.Schema({
 			ref: "Courses",
 		},
 	],
+	token: {
+		type: String,
+	},
+	resetPasswordExpires: {
+		type: Date,
+	},
 	images: {
 		type: String,
 		required: true,
