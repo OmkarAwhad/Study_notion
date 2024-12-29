@@ -1,10 +1,8 @@
 const User = require("../models/user.models");
-const jwt = require("jsonwebtoken");
 const { ApiResponse } = require("../utils/ApiResponse.utils");
 const { ApiError } = require("../utils/ApiError.utils");
 require("dotenv").config();
 const { mailSender } = require("../utils/mailSender.utils");
-const { passwordUpdated } = require("../mails/passwordUpdated.template");
 const bcrypt = require("bcrypt");
 
 //link banao
