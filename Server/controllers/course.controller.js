@@ -15,14 +15,23 @@ module.exports.createCourse = async (req, res) => {
 	//return res
 
 	try {
-		const { name, description, whatWillYouLearn, price, category } =
-			req.body;
+		const {
+			name,
+			description,
+			whatWillYouLearn,
+			price,
+			category,
+			tag: _tag,
+		} = req.body;
 
 		const { thumbNailImage } = req.files;
+
+		const tag = JSON.parse(_tag);
 
 		if (
 			!name ||
 			!description ||
+			!tag.length ||
 			!whatWillYouLearn ||
 			!price ||
 			!category
@@ -30,7 +39,7 @@ module.exports.createCourse = async (req, res) => {
 			return res.json(new ApiError(401, "All fields are required"));
 		}
 
-      // TODO
+		// TODO
 		const instructorId = req.user.id;
 		const instructorData = await User.findById({ _id: instructorId });
 		if (!instructorData) {
@@ -44,7 +53,7 @@ module.exports.createCourse = async (req, res) => {
 					: "Not same"
 			}`
 		);
-      // TODO
+		// TODO
 
 		const categoryData = await Category.findOne({ name: category });
 		if (!categoryData) {
@@ -62,6 +71,7 @@ module.exports.createCourse = async (req, res) => {
 			whatWillYouLearn,
 			instructor: instructorData._id,
 			price,
+			tags: tag,
 			thumbNail: imageToCloudinary.secure_url,
 			category: categoryData._id,
 		});
