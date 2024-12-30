@@ -22,16 +22,19 @@ module.exports.createCourse = async (req, res) => {
 			price,
 			category,
 			tag: _tag,
+			instructions: _instructions,
 		} = req.body;
 
 		const { thumbNailImage } = req.files;
 
 		const tag = JSON.parse(_tag);
+		const instructions = JSON.parse(_instructions);
 
 		if (
 			!name ||
 			!description ||
 			!tag.length ||
+			!instructions.length ||
 			!whatWillYouLearn ||
 			!price ||
 			!category
@@ -72,6 +75,7 @@ module.exports.createCourse = async (req, res) => {
 			instructor: instructorData._id,
 			price,
 			tags: tag,
+			instructions: instructions,
 			thumbNail: imageToCloudinary.secure_url,
 			category: categoryData._id,
 		});
@@ -134,6 +138,58 @@ module.exports.showAllCourses = async (req, res) => {
 			new ApiError(
 				500,
 				"Something went wrong while fetching all courses "
+			)
+		);
+	}
+};
+
+module.exports.getCourseDetail = async (req, res) => {
+	try {
+		const { courseId } = req.body;
+		if (!courseId) {
+			return res.json(new ApiError(401, "Course ID is required"));
+		}
+
+		const response = await Course.findById(courseId)
+			.populate({
+				path: "instructor",
+				populate: {
+					path: "additionalDetails",
+				},
+			})
+			.populate("category")
+			.populate("ratingAndReviews")
+			.populate({
+				path: "courseContent",
+				populate: {
+					path: "subSection",
+					select: "-videoUrl",
+				},
+			})
+			.populate({
+				path: "studentsEnrolled",
+				populate: {
+					path: "additionalDetails",
+				},
+			})
+			.exec();
+
+		if (!response) {
+			return res.json(new ApiError(404, "Course not found"));
+		}
+
+		return res.json(
+			new ApiResponse(201, response, "Data fetched successfully")
+		);
+	} catch (error) {
+		console.log(
+			"Something went wrong while fetching course detail ",
+			error
+		);
+		return res.json(
+			new ApiError(
+				500,
+				"Something went wrong while fetching course detail "
 			)
 		);
 	}
