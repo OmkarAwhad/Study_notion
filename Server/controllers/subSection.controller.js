@@ -38,7 +38,7 @@ module.exports.createSubSection = async (req, res) => {
 			videoUrl: uploadVideo.secure_url,
 		});
 
-		await Section.findByIdAndUpdate(
+		const updatedSection = await Section.findByIdAndUpdate(
 			{ _id: sectionId },
 			{ $push: { subSection: response._id } },
 			{ new: true }
@@ -49,7 +49,7 @@ module.exports.createSubSection = async (req, res) => {
 		return res.json(
 			new ApiResponse(
 				201,
-				response,
+				updatedSection,
 				"Sub section created successfully"
 			)
 		);

@@ -1,5 +1,6 @@
 const Section = require("../models/section.models");
 const Course = require("../models/course.models");
+const SubSection = require("../models/subSection.models");
 const { ApiResponse } = require("../utils/ApiResponse.utils");
 const { ApiError } = require("../utils/ApiError.utils");
 
@@ -20,7 +21,7 @@ module.exports.createSection = async (req, res) => {
 			return res.json(new ApiError(401, "Course not found"));
 		}
 
-		await Course.findByIdAndUpdate(
+		const updatedCourse = await Course.findByIdAndUpdate(
 			{ _id: courseId },
 			{ $push: { courseContent: response._id } },
 			{ new: true }
@@ -34,7 +35,11 @@ module.exports.createSection = async (req, res) => {
 			.exec();
 
 		return res.json(
-			new ApiResponse(201, response, "Section created successfully")
+			new ApiResponse(
+				201,
+				updatedCourse,
+				"Section created successfully"
+			)
 		);
 	} catch (error) {
 		console.log(
@@ -52,15 +57,24 @@ module.exports.createSection = async (req, res) => {
 
 module.exports.updateSection = async (req, res) => {
 	try {
-		const { sectionId, sectionName } = req.body;
+		const { sectionId, sectionName, courseId } = req.body;
 		await Section.findByIdAndUpdate(
 			{ _id: sectionId },
 			{ sectionName: sectionName },
 			{ new: true }
 		);
 
+		const course = await Course.findById(courseId)
+			.populate({
+				path: "courseContent",
+				populate: {
+					path: "subSection",
+				},
+			})
+			.exec();
+
 		return res.json(
-			new ApiResponse(201, {}, "Section updated successfully")
+			new ApiResponse(201, course, "Section updated successfully")
 		);
 	} catch (error) {
 		console.log(
@@ -83,6 +97,12 @@ module.exports.deleteSection = async (req, res) => {
 		if (!courseId || !sectionId) {
 			return res.json(new ApiError(401, "Every field is required"));
 		}
+
+		//delete all subsections
+		const sectionDetails = await Section.findById(sectionId);
+		await SubSection.deleteMany({
+			_id: { $in: sectionDetails.subSection },
+		});
 
 		await Section.findByIdAndDelete({ _id: sectionId });
 

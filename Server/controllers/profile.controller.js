@@ -42,8 +42,12 @@ module.exports.updateProfile = async (req, res) => {
 
 		await profileData.save();
 
+		const updatedUserDetails = await User.findById(id)
+      .populate("additionalDetails")
+      .exec()
+
 		return res.json(
-			new ApiResponse(201, profileData, "Profile updated successfully")
+			new ApiResponse(201, updatedUserDetails, "Profile updated successfully")
 		);
 	} catch (error) {
 		console.log(
@@ -102,8 +106,10 @@ module.exports.getAllUserDetails = async (req, res) => {
 	try {
 		const userId = req.user.id;
 
-		const userDetails = await User.findById(userId).populate("additionalDetails").exec();
-		
+		const userDetails = await User.findById(userId)
+			.populate("additionalDetails")
+			.exec();
+
 		return res.json(
 			new ApiResponse(201, userDetails, "Users all detail fetched")
 		);
