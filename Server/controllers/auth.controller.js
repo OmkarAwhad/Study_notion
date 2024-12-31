@@ -117,9 +117,12 @@ module.exports.SignUp = async (req, res) => {
 		const otpForUser = await OTP.find({ email: email })
 			.sort({ createdAt: -1 })
 			.limit(1);
+		// console.log(otpForUser)
 		if (otpForUser.length == 0) {
+			console.log("OTP not found");
 			return res.json(new ApiError(401, "OTP not found"));
-		} else if (otp !== otpForUser.otp) {
+		} else if (otp !== otpForUser[0].otp) {
+			console.log("OTP does not match");
 			return res.json(new ApiError(401, "OTP does not match"));
 		}
 

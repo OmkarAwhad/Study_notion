@@ -45,7 +45,7 @@ const userSchema = new mongoose.Schema({
 	resetPasswordExpires: {
 		type: Date,
 	},
-	images: {
+	image: {
 		type: String,
 		required: true,
 	},

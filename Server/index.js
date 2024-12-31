@@ -29,6 +29,7 @@ app.use(
 );
 
 require("./config/mongoose").connect();
+cloudinaryConnect();
 
 app.use("/api/v1/user", userRoutes);
 app.use("/api/v1/course", courseRoutes);

@@ -70,24 +70,35 @@ module.exports.createSubSection = async (req, res) => {
 //TODO doubt
 module.exports.updateSubSection = async (req, res) => {
 	try {
-		const { title, timeDuration, description, subSectionId } = req.body;
+		const { title, timeDuration, description, sectionId, subSectionId } =
+			req.body;
 
-		const subSection = await SubSection.findById({ _id: subSectionId });
+		const subSection = await SubSection.findById(subSectionId);
+
+		if (!subSection) {
+			return res.status(404).json({
+				success: false,
+				message: "SubSection not found",
+			});
+		}
 
 		if (title !== undefined) {
 			subSection.title = title;
 		}
+
 		if (description !== undefined) {
 			subSection.description = description;
 		}
+		if (timeDuration !== undefined) {
+			subSection.timeDuration = timeDuration;
+		}
 		if (req.files && req.files.video !== undefined) {
 			const video = req.files.video;
-			const uploadDetails = await imageUploader(
+			const uploadDetails = await uploadImageToCloudinary(
 				video,
-				process.env.FOLDER_NAME
+				process.env.CLOUDINARY_FOLDER
 			);
 			subSection.videoUrl = uploadDetails.secure_url;
-			subSection.timeDuration = timeDuration;
 		}
 
 		await subSection.save();
@@ -131,14 +142,20 @@ module.exports.deleteSubSection = async (req, res) => {
 			_id: subSectionId,
 		});
 
-		await Section.findByIdAndUpdate(
+		const updatedSection = await Section.findByIdAndUpdate(
 			{ _id: sectionId },
 			{ $pull: { subSection: subSectionId } },
 			{ new: true }
-		);
+		)
+			.populate("subSection")
+			.exec();
 
 		return res.json(
-			new ApiResponse(201, {}, "Sub section deleted successfully")
+			new ApiResponse(
+				201,
+				updatedSection,
+				"Sub section deleted successfully"
+			)
 		);
 	} catch (error) {
 		console.log(

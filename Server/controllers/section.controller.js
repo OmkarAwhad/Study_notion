@@ -12,9 +12,7 @@ module.exports.createSection = async (req, res) => {
 			return res.json(new ApiError(401, "Every field is required"));
 		}
 
-		const response = (await Section.create({ sectionName: sectionName }))
-			.populate("subSection")
-			.exec();
+		const response = await Section.create({ sectionName: sectionName });
 
 		const courseExists = await Course.findById(courseId);
 		if (!courseExists) {
@@ -107,14 +105,18 @@ module.exports.deleteSection = async (req, res) => {
 		await Section.findByIdAndDelete({ _id: sectionId });
 
 		//delete entry from course db
-		await Course.findByIdAndUpdate(
+		const updatedCourse = await Course.findByIdAndUpdate(
 			{ _id: courseId },
 			{ $pull: { courseContent: sectionId } },
 			{ new: true }
-		);
+		).populate("courseContent").exec();
 
 		return res.json(
-			new ApiResponse(201, {}, "Section deleted successfully")
+			new ApiResponse(
+				201,
+				updatedCourse,
+				"Section deleted successfully"
+			)
 		);
 	} catch (error) {
 		console.log(

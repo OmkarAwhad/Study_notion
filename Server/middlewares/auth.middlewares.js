@@ -16,7 +16,7 @@ exports.auth = async (req, res, next) => {
 
 		try {
 			const decode = await jwt.verify(token, process.env.JWT_SECRET);
-			console.log("Decode ", decode);
+			// console.log("Decode ", decode);
 			req.user = decode;
 		} catch (error) {
 			return res.json(new ApiError(401, "Invalid token"));

@@ -2,6 +2,8 @@ const Profile = require("../models/profile.models");
 const User = require("../models/user.models");
 const { ApiResponse } = require("../utils/ApiResponse.utils");
 const { ApiError } = require("../utils/ApiError.utils");
+const { imageUploader } = require("../utils/imageUploader.utils");
+require("dotenv").config();
 
 module.exports.updateProfile = async (req, res) => {
 	try {
@@ -42,12 +44,16 @@ module.exports.updateProfile = async (req, res) => {
 
 		await profileData.save();
 
-		const updatedUserDetails = await User.findById(id)
-      .populate("additionalDetails")
-      .exec()
+		const updatedUserDetails = await User.findById(userId)
+			.populate("additionalDetails")
+			.exec();
 
 		return res.json(
-			new ApiResponse(201, updatedUserDetails, "Profile updated successfully")
+			new ApiResponse(
+				201,
+				updatedUserDetails,
+				"Profile updated successfully"
+			)
 		);
 	} catch (error) {
 		console.log(
@@ -122,6 +128,52 @@ module.exports.getAllUserDetails = async (req, res) => {
 			new ApiError(
 				500,
 				"Something went wrong while fetching all user details "
+			)
+		);
+	}
+};
+
+module.exports.updateDisplayPicture = async (req, res) => {
+	try {
+		const displayPicture = req.files.displayPicture;
+		const userId = req.user.id;
+
+		if (!displayPicture) {
+			return res.json(new ApiError(401, "Please provide picture "));
+		}
+
+		const cloudinaryImage = await imageUploader(
+			displayPicture,
+			process.env.CLOUDINARY_FOLDER,
+			1000,
+			1000
+		);
+		console.log(cloudinaryImage);
+
+		const userDetails = await User.findByIdAndUpdate(
+			{ _id: userId },
+			{ image: cloudinaryImage.secure_url },
+			{ new: true }
+		)
+			.populate("additionalDetails")
+			.exec();
+
+		return res.json(
+			new ApiResponse(
+				201,
+				userDetails,
+				"Profile picture updated successfully"
+			)
+		);
+	} catch (error) {
+		console.log(
+			"Something went wrong while updating profile picture ",
+			error
+		);
+		return res.json(
+			new ApiError(
+				500,
+				"Something went wrong while updating profile picture "
 			)
 		);
 	}

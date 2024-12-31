@@ -9,7 +9,7 @@ const {
 const {
 	createCourse,
 	showAllCourses,
-	getCourseDetails,
+	getCourseDetail,
 	deleteCourse,
 	getFullCourseDetails,
 	editCourse,
@@ -37,6 +37,8 @@ const {
 	getAllRatingAndReviewsForCourse,
 } = require("../controllers/ratingAndReviews.controller");
 
+
+
 router.post("/addSection", auth, isInstructor, createSection);
 router.post("/updateSection", auth, isInstructor, updateSection);
 router.post("/deleteSection", auth, isInstructor, deleteSection);
@@ -47,7 +49,7 @@ router.post("/deleteSubSection", auth, isInstructor, deleteSubSection);
 
 router.post("/createCourse", auth, isInstructor, createCourse);
 router.get("/showAllCourses", showAllCourses);
-router.post("/getCourseDetails", getCourseDetails);
+router.post("/getCourseDetail", getCourseDetail);
 // router.delete("/deleteCourse", deleteCourse);
 // router.post("/getFullCourseDetails", auth, getFullCourseDetails);
 // router.post("/editCourse", auth, isInstructor, editCourse);

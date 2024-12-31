@@ -16,8 +16,8 @@ module.exports.createCourse = async (req, res) => {
 
 	try {
 		const {
-			name,
-			description,
+			courseName,
+			courseDescription,
 			whatWillYouLearn,
 			price,
 			category,
@@ -31,8 +31,8 @@ module.exports.createCourse = async (req, res) => {
 		const instructions = JSON.parse(_instructions);
 
 		if (
-			!name ||
-			!description ||
+			!courseName ||
+			!courseDescription ||
 			!tag.length ||
 			!instructions.length ||
 			!whatWillYouLearn ||
@@ -49,16 +49,16 @@ module.exports.createCourse = async (req, res) => {
 			return res.json(new ApiError(401, "Instructor not found"));
 		}
 
-		console.log(
-			`${
-				instructorData._id === instructorId
-					? "Same IDs"
-					: "Not same"
-			}`
-		);
+		// console.log(
+		// 	`${
+		// 		instructorData._id === instructorId
+		// 			? "Same IDs"
+		// 			: "Not same"
+		// 	}`
+		// );
 		// TODO
 
-		const categoryData = await Category.findOne({ name: category });
+		const categoryData = await Category.findById({ _id: category });
 		if (!categoryData) {
 			return res.json(new ApiError(401, "Category not found"));
 		}
@@ -124,6 +124,7 @@ module.exports.showAllCourses = async (req, res) => {
 		)
 			.populate("instructor")
 			.populate("ratingAndReviews")
+			.populate("courseContent")
 			.exec();
 
 		return res.json(
