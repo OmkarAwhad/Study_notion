@@ -18,11 +18,27 @@ function LearningLanguageSection() {
 				schedule and more.
 			</p>
 			<div className=" my-4 flex flex-col relative ">
-				<img src={Know_your_progress} alt="" className=" object-contain sm:absolute sm:-left-[65%] sm:top-16 " />
-				<img src={Compare_with_others} alt="" className=" object-contain  " />
-				<img src={Plan_your_lessons} alt="" className=" object-contain sm:absolute sm:-right-3/4 " />
+				<img
+					src={Know_your_progress}
+					alt=""
+					className=" object-contain sm:absolute sm:-left-[65%] sm:top-16 "
+				/>
+				<img
+					src={Compare_with_others}
+					alt=""
+					className=" object-contain  "
+				/>
+				<img
+					src={Plan_your_lessons}
+					alt=""
+					className=" object-contain sm:absolute sm:-right-3/4 "
+				/>
 			</div>
-         <CTAButton text={'Learn More'} active={true} linkto={'/sign-up'} />
+			<CTAButton
+				text={"Learn More"}
+				active={true}
+				linkto={"/sign-up"}
+			/>
 		</div>
 	);
 }

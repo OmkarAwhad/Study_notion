@@ -1,15 +1,17 @@
 import React from "react";
+import "../App.css";
 import { Link } from "react-router-dom";
 import { FaArrowRight } from "react-icons/fa";
 import HighlightText from "../components/core/HomePage/HighlightText";
 import CTAButton from "../components/core/HomePage/CTAButton";
 import Banner from "../assets/Images/banner.mp4";
 import CodeBlocks from "../components/core/HomePage/CodeBlocks";
-import "../App.css";
 import Footer from "../components/common/Footer";
 import BgHome from "../assets/Images/bghome.svg";
 import TimeLineSection from "../components/core/HomePage/TimeLineSection";
 import LearningLanguageSection from "../components/core/HomePage/LearningLanguageSection";
+import InstructorSection from "../components/core/HomePage/InstructorSection";
+import ExploreMore from "../components/core/HomePage/ExploreMore";
 
 function Home() {
 	return (
@@ -148,7 +150,10 @@ function Home() {
 						codeColor={"text-blue-100"}
 					/>
 				</div>
+
+            <ExploreMore/>
 			</div>
+
 			{/* Section 2 */}
 			<div className="bg-white w-full mx-auto">
 				<div className="w-full relative ">
@@ -195,7 +200,18 @@ function Home() {
 
 				<LearningLanguageSection />
 			</div>
+
 			{/* Section 3 */}
+			<div className="w-10/12 mx-auto py-10 sm:py-24  ">
+				<InstructorSection />
+
+				<div className="w-full mt-24 flex flex-col items-center text-white ">
+					<h1 className="text-3xl font-bold">
+						Reviews from other learners
+					</h1>
+				</div>
+			</div>
+
 			{/* Section 4 */}
 			<Footer />
 		</div>

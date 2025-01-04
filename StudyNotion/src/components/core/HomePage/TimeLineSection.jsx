@@ -30,7 +30,7 @@ function TimeLineSection() {
 	];
 
 	return (
-		<div className="w-11/12 mx-auto flex flex-col gap-16 sm:gap-1 pb-10 sm:flex-row items-center justify-center sm:py-10">
+		<div className="w-10/12 mx-auto flex flex-col gap-16 sm:gap-1 pb-10 sm:flex-row items-center justify-center sm:py-10">
 			<div className="  sm:w-[45%] flex flex-col gap-10 ">
 				{timeLineData.map((item, index) => {
 					return (
