@@ -5,6 +5,11 @@ import HighlightText from "../components/core/HomePage/HighlightText";
 import CTAButton from "../components/core/HomePage/CTAButton";
 import Banner from "../assets/Images/banner.mp4";
 import CodeBlocks from "../components/core/HomePage/CodeBlocks";
+import "../App.css";
+import Footer from "../components/common/Footer";
+import BgHome from "../assets/Images/bghome.svg";
+import TimeLineSection from "../components/core/HomePage/TimeLineSection";
+import LearningLanguageSection from "../components/core/HomePage/LearningLanguageSection";
 
 function Home() {
 	return (
@@ -24,6 +29,7 @@ function Home() {
 					Empower your Future with
 					<HighlightText text={"Coding Skills"} />
 				</div>
+
 				<p className="  md:text-center w-full text-base sm:w-7/12 my-6 font-semibold text-richblack-400 ">
 					With our online coding courses, you can learn at your
 					own pace, from anywhere in the world, and get access to
@@ -144,8 +150,54 @@ function Home() {
 				</div>
 			</div>
 			{/* Section 2 */}
+			<div className="bg-white w-full mx-auto">
+				<div className="w-full relative ">
+					<img
+						src={BgHome}
+						alt=""
+						className="w-full h-[45vh] object-cover "
+					/>
+					<div className="flex flex-col gap-5 sm:flex-row items-center justify-center sm:gap-20 absolute top-1/2 left-[28%] sm:left-[37%] ">
+						<CTAButton
+							text={"Explore Full Catalog"}
+							active={true}
+							linkto={"/sign-up"}
+						/>
+						<CTAButton
+							text={"Learn More"}
+							active={false}
+							linkto={"/login"}
+						/>
+					</div>
+				</div>
+
+				<div className="flex flex-col sm:flex-row justify-between sm:w-10/12 items-center py-20 mx-auto">
+					<div className="text-4xl font-bold px-5 pb-4 sm:w-[40%] ">
+						Get the skills you need for a{" "}
+						<HighlightText text={"job that is in demand"} />
+					</div>
+					<div className=" px-5 sm:w-[40%] ">
+						<p className="mb-10 text-richblack-500 font-medium ">
+							The modern StudyNotion is the dictates its
+							own terms. Today, to be a competitive
+							specialist requires more than professional
+							skills.
+						</p>
+						<CTAButton
+							text={"Learn More"}
+							active={true}
+							linkto={"/sign-up"}
+						/>
+					</div>
+				</div>
+
+				<TimeLineSection />
+
+				<LearningLanguageSection />
+			</div>
 			{/* Section 3 */}
 			{/* Section 4 */}
+			<Footer />
 		</div>
 	);
 }
