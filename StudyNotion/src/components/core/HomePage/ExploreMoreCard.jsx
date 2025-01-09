@@ -3,7 +3,7 @@ import { HiUserGroup } from "react-icons/hi";
 import { ImTree } from "react-icons/im";
 
 function ExploreMoreCard({ item, currentCard, setCurrentCard }) {
-	console.log(currentCard);
+	// console.log(currentCard);
 
 	return (
 		<div

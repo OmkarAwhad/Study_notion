@@ -17,9 +17,9 @@ function CodeBlocks({
 			className={`w-full flex flex-col ${position} items-center justify-between `}
 		>
 			<div className=" w-full sm:w-[40%] ">
-				<p className=" text-2xl sm:text-4xl font-bold mb-4 ">
+				<div className=" text-2xl sm:text-4xl font-bold mb-4 ">
 					{heading}
-				</p>
+				</div>
 				<p className=" text-richblack-400 font-semibold text-base md:mb-12 ">
 					{subheading}
 				</p>
