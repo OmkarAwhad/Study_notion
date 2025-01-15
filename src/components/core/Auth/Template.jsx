@@ -13,18 +13,9 @@ function Template({ title, desc1, desc2, image, formType }) {
 					<span className=" text-blue-200 italic ">{desc2}</span>
 				</p>
 
-				<div className="p-2 bg-richblack-800 rounded-full w-fit flex items-center justify-between gap-2 ">
-					<div className="bg-richblack-900 px-7 py-2 rounded-full ">
-						Student
-					</div>
-					<div className="bg-richblack-900 px-7 py-2 rounded-full ">
-						Instructor
-					</div>
+				<div className="w-full">
+					{formType === "login" ? <LoginForm /> : <SignupForm />}
 				</div>
-
-            <div className="w-full">
-				   {formType === "login" ? <LoginForm /> : <SignupForm />}
-            </div>
 			</div>
 
 			<div className="relative sm:block hidden  ">

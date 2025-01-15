@@ -223,8 +223,8 @@ module.exports.sendOtp = async (req, res) => {
 	try {
 		const { email } = req.body;
 
-		const userData = await User.findOne({ email: email });
-		if (userData) {
+		const checkUserPresent = await User.findOne({ email: email });
+		if (checkUserPresent) {
 			return res.json(new ApiError(401, "User already exists"));
 		}
 

@@ -3,7 +3,7 @@ import React from 'react'
 function ProfileDropDown() {
    return (
       <div>
-         P
+         ProfileDropDown
       </div>
    )
 }

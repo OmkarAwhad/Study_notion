@@ -33,6 +33,7 @@ function Navbar() {
 	};
 	useEffect(() => {
 		fetchSubLinks();
+		console.log(user)
 	}, []);
 
 	const location = useLocation();
@@ -71,12 +72,15 @@ function Navbar() {
 														item,
 														index
 													) => (
-														<div className="w-full hover:scale-105 hover:bg-richblack-400 transition-all duration-200 rounded-md cursor-pointer text-center ">
+														<div
+															key={
+																index
+															}
+															className="w-full hover:scale-105 hover:bg-richblack-400 transition-all duration-200 rounded-md cursor-pointer text-center "
+														>
 															<Link
 																className="cursor-pointer"
-																to={
-																	`/catalog/${item.name}`
-																}
+																to={`/catalog/${item.name}`}
 															>
 																{
 																	item.name
@@ -131,7 +135,7 @@ function Navbar() {
 							</Link>
 							<div>
 								<img
-									src={LogoSmallLight}
+									src={user.image}
 									className="h-7 w-7 rounded-full object-cover cursor-pointer "
 									alt=""
 								/>
@@ -154,7 +158,11 @@ function Navbar() {
 						</div>
 					)}
 
-					{token !== null && <ProfileDropDown />}
+					{token !== null && (
+						<div className="flex gap-3">
+							<ProfileDropDown />
+						</div>
+					)}
 				</div>
 			</div>
 		</div>
