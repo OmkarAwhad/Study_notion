@@ -33,7 +33,7 @@ function Navbar() {
 	};
 	useEffect(() => {
 		fetchSubLinks();
-		console.log(user)
+		// console.log(user)
 	}, []);
 
 	const location = useLocation();
@@ -115,7 +115,7 @@ function Navbar() {
 					))}
 				</div>
 
-				<div>
+				<div className="flex gap-7">
 					{user && user?.accountType !== "Instructor" && (
 						<div className="flex gap-7 items-center  ">
 							<button className="text-2xl ">
@@ -133,13 +133,6 @@ function Navbar() {
 
 								<GrCart className=" cursor-pointer " />
 							</Link>
-							<div>
-								<img
-									src={user.image}
-									className="h-7 w-7 rounded-full object-cover cursor-pointer "
-									alt=""
-								/>
-							</div>
 						</div>
 					)}
 

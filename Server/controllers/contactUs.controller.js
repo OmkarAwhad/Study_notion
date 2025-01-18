@@ -1,9 +1,11 @@
 const { mailSender } = require("../utils/mailSender.utils");
 const { contactUsEmail } = require("../mails/contactFormRes.templates");
+const { ApiResponse } = require("../utils/ApiResponse.utils");
+const { ApiError } = require("../utils/ApiError.utils");
 
 module.exports.contactUs = async (req, res) => {
 	try {
-		const userId = req.user.id;
+		// const userId = req.user;
 
 		const {
 			firstName,
@@ -23,13 +25,14 @@ module.exports.contactUs = async (req, res) => {
 			await mailSender(
 				email,
 				"Thanks for trusting",
+				// "Thanks",
 				contactUsEmail(
 					email,
 					firstName,
 					lastName,
 					message,
 					contactNumber,
-					(countrycode = "")
+					countrycode
 				)
 			);
 		} catch (error) {

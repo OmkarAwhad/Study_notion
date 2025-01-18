@@ -3,6 +3,7 @@ import { apiConnector } from "../apiConnector.service";
 import { setToken, setLoading } from "../../slices/auth.slice";
 import { setUser } from "../../slices/profile.slice";
 import { authApi } from "../apis.service";
+import { resetCart } from "../../slices/cart.slice";
 
 export function sendOtp(email, navigate) {
 	return async (dispatch) => {
@@ -18,6 +19,7 @@ export function sendOtp(email, navigate) {
 			console.log(result.data.success);
 
 			if (!result.data.success) {
+				toast.error(result.data.message);
 				throw new Error(result.data.message);
 			}
 
@@ -81,7 +83,7 @@ export function login(email, password, navigate) {
 				email,
 				password,
 			});
-         console.log(result)
+			console.log(result);
 			if (result.data.success) {
 				toast.success("Login Successful");
 				dispatch(setToken(result.data.data.token));
@@ -101,9 +103,9 @@ export function login(email, password, navigate) {
 				dispatch(
 					setUser({ ...result.data.data.user, image: userImage })
 				);
-				navigate("/dashboard/my-profile")
-				// navigate("/");
+				navigate("/dashboard/my-profile");
 			} else {
+				toast.error(result.data.message);
 				throw new Error(result.data.message);
 			}
 		} catch (error) {
@@ -163,5 +165,17 @@ export function resetPassword(token, password, confirmPassword) {
 		}
 		dispatch(setLoading(false));
 		toast.dismiss(toastId);
+	};
+}
+
+export function logout(navigate) {
+	return (dispatch) => {
+		dispatch(setToken(null));
+		dispatch(setUser(null));
+		dispatch(resetCart());
+		localStorage.removeItem("token");
+		localStorage.removeItem("user");
+		toast.success("Logged Out");
+		navigate("/");
 	};
 }
