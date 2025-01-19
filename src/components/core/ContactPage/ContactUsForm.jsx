@@ -22,7 +22,7 @@ function ContactUsForm() {
 				contactApi.CONTACT_API,
 				data
 			);
-         reset();
+			reset();
 			// console.log("response ",response);
 		} catch (error) {
 			console.log("Error ", error);
@@ -48,7 +48,7 @@ function ContactUsForm() {
 			className="flex flex-col w-full gap-5 "
 		>
 			<div className="flex gap-3">
-				<label>
+				<label className="w-1/2">
 					<p className=" text-richblack-200 text-sm ml-1 mb-1 ">
 						First Name
 					</p>
@@ -62,7 +62,7 @@ function ContactUsForm() {
 						<span>Please Enter your First Name</span>
 					)}
 				</label>
-				<label>
+				<label className="w-1/2">
 					<p className=" text-richblack-200 text-sm ml-1 mb-1 ">
 						Last Name
 					</p>
