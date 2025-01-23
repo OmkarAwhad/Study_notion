@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import { sidebarLinks } from "../../../data/dashboard-links";
-import { logout } from "../../../services/operations/authAPI.service";
+import { sidebarLinks } from "../../../../data/dashboard-links";
+import { logout } from "../../../../services/operations/authAPI.service";
 import { useDispatch, useSelector } from "react-redux";
 import SideBarLink from "./SideBarLink";
 import { useNavigate } from "react-router-dom";
 import { VscSignOut } from "react-icons/vsc";
-import ConfirmationModal from "../../common/ConfirmationModal";
+import ConfirmationModal from "../../../common/ConfirmationModal";
 
 function SideBar() {
 	const { user, loading: profileLoading } = useSelector(
@@ -26,7 +26,7 @@ function SideBar() {
 	}
 
 	return (
-		<div className=" flex min-w-[222px] flex-col border-r-[1px] border-r-richblack-700 h-[calc(100vh-3.5rem)] bg-richblack-800 py-10 ">
+		<div className=" flex min-w-[222px]	 flex-col border-r-[1px] border-r-richblack-700 h-[calc(100vh-3.5rem)] bg-richblack-800 py-10 ">
 			<div className="flex flex-col">
 				{sidebarLinks.map((item) => {
 					if (item.type && user.accountType !== item.type)
@@ -41,7 +41,7 @@ function SideBar() {
 				<SideBarLink icon= "VscSettingsGear"
 					link={{
 						name: "Settings",
-						path: "/dasboard/settings",
+						path: "/dashboard/settings",
 						
 						
 					}}

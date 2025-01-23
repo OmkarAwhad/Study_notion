@@ -15,3 +15,10 @@ export const authApi = {
 export const contactApi = {
 	CONTACT_API: BASE_URL + "/contact",
 };
+
+export const profileApi = {
+	UPDATE_PROFILE_PICTURE: BASE_URL + "/profile/updateDisplayPicture",
+	UPDATE_PROFILE: BASE_URL + "/profile/updateProfile",
+	UPDATE_PASSWORD: BASE_URL + "/profile/updatePassword",
+	DELETE_PROFILE: BASE_URL + "/profile/deleteProfile",
+};

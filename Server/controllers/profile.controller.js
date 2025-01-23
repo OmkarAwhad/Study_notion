@@ -3,6 +3,7 @@ const User = require("../models/user.models");
 const { ApiResponse } = require("../utils/ApiResponse.utils");
 const { ApiError } = require("../utils/ApiError.utils");
 const { imageUploader } = require("../utils/imageUploader.utils");
+const bcrypt = require("bcrypt");
 require("dotenv").config();
 
 module.exports.updateProfile = async (req, res) => {
@@ -175,6 +176,69 @@ module.exports.updateDisplayPicture = async (req, res) => {
 				500,
 				"Something went wrong while updating profile picture "
 			)
+		);
+	}
+};
+
+module.exports.updatePassword = async (req, res) => {
+	try {
+		//fetch data from req
+		//validate
+		//check oldPass, newPass and confirmNewPass
+		//update pass in db
+		//send mail that password is updated
+		//return resp
+
+		const userId = req.user.id;
+
+		const { password, newPassword } = req.body;
+
+		if (!password || !newPassword) {
+			return res.json(new ApiError(401, "Each field is required"));
+		}
+
+		const userData = await User.findById(userId);
+		if (!userData) {
+			return res.json(new ApiError(401, "User does not exist"));
+		}
+
+		console.log(await bcrypt.compare(password, userData.password));
+		if (await bcrypt.compare(password, userData.password)) {
+			const hashedPassword = await bcrypt.hash(newPassword, 10);
+
+			const updatedUser = await User.findByIdAndUpdate(
+				userData._id,
+				{
+					password: hashedPassword,
+				},
+				{ new: true }
+			);
+
+			// try {
+			// 	const mailResponse = await mailSender(
+			// 		email,
+			// 		"Your Password has been updated",
+			// 		passwordUpdated(email, userData.firstName)
+			// 	);
+			// 	console.log("Mail sent successfully ", mailResponse);
+			// } catch (error) {
+			// 	console.log("Error occurred while sending email");
+			// }
+
+			return res.json(
+				new ApiResponse(
+					201,
+					updatedUser,
+					"Password changed successfully"
+				)
+			);
+		} else {
+			return res.json(new ApiError(401, "Invalid old password"));
+		}
+	} catch (error) {
+		console.log("Error in change password controller");
+		return res.json(
+			new ApiError(500, "Error in change password controller")
 		);
 	}
 };

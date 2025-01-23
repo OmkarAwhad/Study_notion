@@ -13,6 +13,7 @@ const profileSlice = createSlice({
 	reducers: {
 		setUser(state, value) {
 			state.user = value.payload;
+			localStorage.setItem("user", JSON.stringify(value.payload)); // Update localStorage
 		},
 		setLoading(state, value) {
 			state.loading = value.payload;

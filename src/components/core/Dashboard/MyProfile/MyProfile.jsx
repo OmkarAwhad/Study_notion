@@ -6,9 +6,9 @@ import { RiEditBoxLine } from "react-icons/ri";
 function MyProfile() {
 	const { user } = useSelector((state) => state.profile);
 	const navigate = useNavigate();
-	useEffect(()=>{
-	  console.log("User " ,user.additionalDetails )
-	},[])
+	// useEffect(() => {
+	// 	console.log("User ", user.additionalDetails);
+	// }, []);
 	return (
 		<div className="text-white w-[70vw] flex flex-col mt-10 ml-10 gap-7">
 			<h1 className="font-bold text-3xl">My Profile</h1>
@@ -72,7 +72,7 @@ function MyProfile() {
 								{user?.firstName}
 							</p>
 						</div>
-            <div>
+						<div>
 							<h1 className="text-richblack-200 text-sm mb-2 ">
 								Last Name
 							</h1>
@@ -80,7 +80,7 @@ function MyProfile() {
 								{user?.lastName}
 							</p>
 						</div>
-            <div>
+						<div>
 							<h1 className="text-richblack-200 text-sm mb-2 ">
 								Email
 							</h1>
@@ -88,28 +88,36 @@ function MyProfile() {
 								{user?.email}
 							</p>
 						</div>
-            <div>
+						<div>
 							<h1 className="text-richblack-200 text-sm mb-2 ">
 								Contact Number
 							</h1>
 							<p className="font-semibold text-sm">
-								{user?.additionalDetails?.contactNumber ? user?.additionalDetails?.contactNumber : "Add Contact Number"}
+								{user?.additionalDetails?.contactNumber
+									? user?.additionalDetails
+											?.contactNumber
+									: "Add Contact Number"}
 							</p>
 						</div>
-            <div>
+						<div>
 							<h1 className="text-richblack-200 text-sm mb-2 ">
 								Gender
 							</h1>
 							<p className="font-semibold text-sm">
-              {user?.additionalDetails?.gender ? user?.additionalDetails?.gender : "Add Gender"}
+								{user?.additionalDetails?.gender
+									? user?.additionalDetails?.gender
+									: "Add Gender"}
 							</p>
 						</div>
-            <div>
+						<div>
 							<h1 className="text-richblack-200 text-sm mb-2 ">
 								Date of Birth
 							</h1>
 							<p className="font-semibold text-sm">
-              {user?.additionalDetails?.dateOfBirth ? user?.additionalDetails?.dateOfBirth : "Add Date of Birth"}
+								{user?.additionalDetails?.dateOfBirth
+									? user?.additionalDetails
+											?.dateOfBirth
+									: "Add Date of Birth"}
 							</p>
 						</div>
 					</div>

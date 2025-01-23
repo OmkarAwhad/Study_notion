@@ -83,7 +83,7 @@ export function login(email, password, navigate) {
 				email,
 				password,
 			});
-			console.log(result);
+			// console.log(result.data?.data?.user?.image);
 			if (result.data.success) {
 				toast.success("Login Successful");
 				dispatch(setToken(result.data.data.token));
@@ -96,8 +96,8 @@ export function login(email, password, navigate) {
 					JSON.stringify(result.data.data.user)
 				);
 
-				const userImage = result.data?.data?.image
-					? result.data?.data?.image
+				const userImage = result.data?.data?.user?.image
+					? result.data?.data?.user?.image
 					: `https://api.dicebear.com/5.x/initials/svg?seed=${result.data.data.firstName} ${result.data.data.lastName}`;
 
 				dispatch(

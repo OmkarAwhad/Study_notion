@@ -9,10 +9,11 @@ exports.auth = async (req, res, next) => {
 		const token =
 			req.cookies.token ||
 			req.headers.token ||
-			req.header("Authorisation").replace("Bearer ", "");
+			(req.header("Authorization") && req.header("Authorization").replace("Bearer ", ""));
 		if (!token) {
 			return res.json(new ApiError(401, "Token not found"));
 		}
+		// console.log("Token from middle ",token)
 
 		try {
 			const decode = await jwt.verify(token, process.env.JWT_SECRET);

@@ -12,9 +12,10 @@ import Error from "./pages/Error";
 import ForgotPassword from "./pages/ForgotPassword";
 import OpenRoute from "./components/core/Auth/OpenRoute";
 import UpdatePassword from "./pages/UpdatePassword";
-import MyProfile from "./components/core/Dashboard/MyProfile";
+import MyProfile from "./components/core/Dashboard/MyProfile/MyProfile";
 import Dashboard from "./pages/Dashboard";
 import PrivateRoute from "./components/core/Auth/PrivateRoute";
+import Settings from "./components/core/Dashboard/Settings/Settings.jsx";
 
 function App() {
 	return (
@@ -57,9 +58,9 @@ function App() {
 				<Route
 					path="/about"
 					element={
-						<OpenRoute>
-							<About />
-						</OpenRoute>
+						// <OpenRoute>
+						<About />
+						// </OpenRoute>
 					}
 				/>
 				<Route
@@ -83,6 +84,10 @@ function App() {
 					<Route
 						path="/dashboard/my-profile"
 						element={<MyProfile />}
+					/>
+					<Route
+						path="/dashboard/settings"
+						element={<Settings />}
 					/>
 				</Route>
 			</Routes>
