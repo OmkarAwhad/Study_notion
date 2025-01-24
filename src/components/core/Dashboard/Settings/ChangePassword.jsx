@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { FaEye } from "react-icons/fa6";
 import { FaEyeSlash } from "react-icons/fa6";
-import { updatePassword } from "../../../../services/operations/profileSettingAPI.service";
+import { updatePassword } from "../../../../services/operations/settingAPI.service";
 
 function ChangePassword() {
 	const {

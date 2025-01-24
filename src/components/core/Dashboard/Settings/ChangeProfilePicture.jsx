@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { FiUpload } from "react-icons/fi";
 import { useDispatch, useSelector } from "react-redux";
-import { updateDisplayPicture } from "../../../../services/operations/profileSettingAPI.service";
+import { updateDisplayPicture } from "../../../../services/operations/settingAPI.service";
 import { setLoading } from "../../../../slices/profile.slice";
 
 function ChangeProfilePicture() {

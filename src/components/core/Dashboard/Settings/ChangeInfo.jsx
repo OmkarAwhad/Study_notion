@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import IconBtn from "../../../common/IconBtn";
 import { useNavigate } from "react-router-dom";
-import { updateProfile } from "../../../../services/operations/profileSettingAPI.service";
+import { updateProfile } from "../../../../services/operations/settingAPI.service";
 
 const genders = ["Male", "Female", "Non-Binary", "Prefer not to say", "Other"];
 

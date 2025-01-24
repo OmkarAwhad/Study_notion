@@ -6,6 +6,7 @@ const {
 	getAllUserDetails,
 	updateDisplayPicture,
 	updatePassword,
+	getEnrolledCourses,
 } = require("../controllers/profile.controller");
 const router = express.Router();
 
@@ -14,6 +15,7 @@ router.delete("/deleteProfile", auth, deleteProfile);
 router.get("/getUserDetails", auth, getAllUserDetails);
 router.put("/updateDisplayPicture", auth, updateDisplayPicture);
 router.put("/updatePassword", auth, updatePassword);
+router.get("/getEnrolledCourses", auth, getEnrolledCourses);
 
 module.exports = router;
 

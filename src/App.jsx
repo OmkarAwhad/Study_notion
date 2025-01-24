@@ -16,6 +16,7 @@ import MyProfile from "./components/core/Dashboard/MyProfile/MyProfile";
 import Dashboard from "./pages/Dashboard";
 import PrivateRoute from "./components/core/Auth/PrivateRoute";
 import Settings from "./components/core/Dashboard/Settings/Settings.jsx";
+import EnrolledCourses from "./components/core/Dashboard/EnrolledCourses/EnrolledCourses.jsx";
 
 function App() {
 	return (
@@ -88,6 +89,10 @@ function App() {
 					<Route
 						path="/dashboard/settings"
 						element={<Settings />}
+					/>
+					<Route
+						path="/dashboard/enrolled-courses"
+						element={ <EnrolledCourses/> }
 					/>
 				</Route>
 			</Routes>

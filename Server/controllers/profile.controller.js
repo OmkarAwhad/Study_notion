@@ -242,3 +242,30 @@ module.exports.updatePassword = async (req, res) => {
 		);
 	}
 };
+
+module.exports.getEnrolledCourses = async (req, res) => {
+	try {
+		const userId = req.user.id;
+		const userDetails = await User.findById(userId)
+			.populate("courses")
+			.exec();
+
+		if (!userDetails) {
+			return res.json(
+				new ApiError(401, "Could not find enrolled courses")
+			);
+		}
+		return res.json(
+			new ApiResponse(
+				201,
+				userDetails.courses,
+				"Enrolled courses fetched successfully"
+			)
+		);
+	} catch (error) {
+		console.log("Error in fetching enrolled courses ", error);
+		return res.json(
+			new ApiError(500, "Error in fetching enrolled courses ")
+		);
+	}
+};

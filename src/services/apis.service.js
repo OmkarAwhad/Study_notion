@@ -21,4 +21,5 @@ export const profileApi = {
 	UPDATE_PROFILE: BASE_URL + "/profile/updateProfile",
 	UPDATE_PASSWORD: BASE_URL + "/profile/updatePassword",
 	DELETE_PROFILE: BASE_URL + "/profile/deleteProfile",
+	GET_ENROLLED_COURSES: BASE_URL + "/profile/getEnrolledCourses",
 };
