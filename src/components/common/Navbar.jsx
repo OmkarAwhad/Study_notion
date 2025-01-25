@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { NavbarLinks } from "../../data/navbar-links";
 import LogoLight from "../../assets/Logo/Logo-Full-Light.png";
-import LogoSmallLight from "../../assets/Logo/Logo-Small-Light.png";
 import { Link, matchPath, useLocation } from "react-router-dom";
 import { RiArrowDownWideFill } from "react-icons/ri";
 import { useDispatch, useSelector } from "react-redux";
