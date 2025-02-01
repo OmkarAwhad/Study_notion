@@ -195,3 +195,106 @@ module.exports.getCourseDetail = async (req, res) => {
 		);
 	}
 };
+
+module.exports.editCourse = async (req, res) => {
+	try {
+		const {
+			courseName,
+			courseDescription,
+			whatWillYouLearn,
+			price,
+			category,
+			tag: _tag,
+			instructions: _instructions,
+		} = req.body;
+		const { thumbNailImage } = req.files;
+		const tag = JSON.parse(_tag);
+		const instructions = JSON.parse(_instructions);
+
+		const instructorId = req.user.id;
+
+		const courseData = await Course.findById({ _id: courseId });
+		if (!courseData) {
+			return res.json(new ApiError(401, "Course not found"));
+		}
+	} catch (error) {
+		console.log(
+			"Something went wrong while fetching course detail ",
+			error
+		);
+		return res.json(
+			new ApiError(
+				500,
+				"Something went wrong while fetching course detail "
+			)
+		);
+	}
+};
+
+exports.editCourse = async (req, res) => {
+	try {
+		const { courseId } = req.body;
+		const updates = req.body;
+		const course = await Course.findById(courseId);
+
+		if (!course) {
+			return res.status(404).json({ error: "Course not found" });
+		}
+
+		// If Thumbnail Image is found, update it
+		if (req.files) {
+			console.log("thumbnail update");
+			const thumbnail = req.files.thumbnailImage;
+			const thumbnailImage = await uploadImageToCloudinary(
+				thumbnail,
+				process.env.FOLDER_NAME
+			);
+			course.thumbnail = thumbnailImage.secure_url;
+		}
+
+		// Update only the fields that are present in the request body
+		for (const key in updates) {
+			if (updates.hasOwnProperty(key)) {
+				if (key === "tag" || key === "instructions") {
+					course[key] = JSON.parse(updates[key]);
+				} else {
+					course[key] = updates[key];
+				}
+			}
+		}
+
+		await course.save();
+
+		const updatedCourse = await Course.findOne({
+			_id: courseId,
+		})
+			.populate({
+				path: "instructor",
+				populate: {
+					path: "additionalDetails",
+				},
+			})
+			.populate("category")
+			.populate("ratingAndReviews")
+			.populate({
+				path: "courseContent",
+				populate: {
+					path: "subSection",
+				},
+			})
+			.exec();
+
+		res.json({
+			success: true,
+			message: "Course updated successfully",
+			data: updatedCourse,
+		});
+	} catch (error) {
+		console.error(error);
+		res.status(500).json({
+			success: false,
+			message: "Internal server error",
+			error: error.message,
+		});
+	}
+};

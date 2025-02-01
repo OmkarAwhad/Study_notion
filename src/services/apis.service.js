@@ -23,3 +23,9 @@ export const profileApi = {
 	DELETE_PROFILE: BASE_URL + "/profile/deleteProfile",
 	GET_ENROLLED_COURSES: BASE_URL + "/profile/getEnrolledCourses",
 };
+
+export const courseApi = {
+	GET_COURSE_CATEGORIES: BASE_URL + "/course/showAllCategories",
+	EDIT_COURSE_API: BASE_URL + "/course/editCourse",
+	CREATE_COURSE_API: BASE_URL + "/course/createCourse",
+};

@@ -60,12 +60,14 @@ export function updateProfile(formData, token) {
 			const userImage = result.data.data.image
 				? result.data.data.image
 				: `https://api.dicebear.com/5.x/initials/svg?seed=${result.data.data.firstName} ${result.data.data.lastName}`;
-			dispatch(
-				setUser({
-					...result.data.data,
-					image: userImage,
-				})
-			);
+
+			const updatedUser = {
+				...result.data.data,
+				image: userImage,
+			};
+			dispatch(setUser(updatedUser));
+			// localStorage.setItem("user", JSON.stringify(updatedUser)); // Update local storage
+
 			toast.success("Profile Updated Successfully");
 		} catch (error) {
 			console.log("Error in updating profile ", error);

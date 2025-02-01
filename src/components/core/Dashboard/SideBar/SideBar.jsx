@@ -26,7 +26,7 @@ function SideBar() {
 	}
 
 	return (
-		<div className=" flex min-w-[222px]	 flex-col border-r-[1px] border-r-richblack-700 h-[calc(100vh-3.5rem)] bg-richblack-800 py-10 ">
+		<div className=" flex min-w-[222px]  flex-col border-r-[1px] border-r-richblack-700 h-[calc(100vh-3.5rem)] bg-richblack-800 py-10 ">
 			<div className="flex flex-col">
 				{sidebarLinks.map((item) => {
 					if (item.type && user.accountType !== item.type)

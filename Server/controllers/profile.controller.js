@@ -17,6 +17,8 @@ module.exports.updateProfile = async (req, res) => {
 
 		const {
 			gender,
+			firstName,
+			lastName,
 			dateOfBirth = "",
 			about = "",
 			contactNumber,
@@ -45,7 +47,10 @@ module.exports.updateProfile = async (req, res) => {
 
 		await profileData.save();
 
-		const updatedUserDetails = await User.findById(userId)
+		const updatedUserDetails = await User.findByIdAndUpdate(userId, {
+			firstName: firstName,
+			lastName: lastName,
+		})
 			.populate("additionalDetails")
 			.exec();
 
